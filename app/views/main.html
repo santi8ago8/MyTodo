@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Mi TODO</h1>
+  <form ng-submit="addTodo()">
+    <div class="row">
+      <div class="input-group">
+        <input type="text" ng-model="todo" class="form-control" placeholder="Nueva tarea...">
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-primary" value="Add">
+        </span>
+      </div>
+    </div>
+  </form>
+  
+  <h2>TODO's</h2>
+
+  <div class="row">
+    <input type="text" ng-model='search' class="form-control" placeholder="Busqueda...">
+  </div>
+  <div class="row" ng-repeat="todo in todos | filter:{text:search} | orderBy: 'text'">
+    <p>
+      <div class="input-group">
+        <input type="text" ng-model="todo.text" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>
+        </span>
+      </div>
+    </p>   
+ </div>
+
+</div>
