@@ -16,10 +16,10 @@
   <div class="row">
     <input type="text" ng-model='search' class="form-control" placeholder="Busqueda...">
   </div>
-  <div class="row" ng-repeat="todo in todos | filter:{text:search} | orderBy: 'text'">
+  <div class="row" ng-repeat="todo in todos | filter:search | orderBy: 'text'">
     <p>
       <div class="input-group">
-        <input type="text" ng-model="todo.text" class="form-control">
+        <input type="text" ng-model="todo" class="form-control">
         <span class="input-group-btn">
           <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>
         </span>
