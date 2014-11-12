@@ -12,27 +12,37 @@ var app = express();
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
 
-var todos = ['algo1','algo2','algo3','chau'];
+var todos = ['algo1', 'algo2', 'algo3', 'chau'];
 
-app.get('/api/list',function(req,res){
-   
-    res.json({data:todos});
+app.get('/api/list', function(req, res) {
+
+    res.json({
+        data: todos
+    });
 });
-app.post('/api/add',function(req,res){
-    
+app.post('/api/add', function(req, res) {
+
     todos.push(req.body.todo);
-    res.json({resp:'OK'});
+    res.json({
+        resp: 'OK',
+        todo: req.body.todo
+    });
 });
-app.post('/api/remove',function(req,res){
-    
-    todos.splice(todos.indexOf(req.body.todo),1)
-    res.json({resp:'OK'});
-    
+app.post('/api/remove', function(req, res) {
+
+    todos.splice(todos.indexOf(req.body.todo), 1)
+    res.json({
+        resp: 'OK',
+        todo: req.body.todo
+    });
+
 });
 //agregar, remove
 
