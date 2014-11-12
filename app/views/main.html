@@ -19,7 +19,7 @@
     <div class="row todo" ng-repeat="todo in todos | filter:search | orderBy: '-'">
         <p>
             <div class="input-group">
-                <input type="text" ng-model="todo" class="form-control">
+                <input type="text" ng-model="todo.texto" class="form-control">
                 <span class="input-group-btn">
           <button class="btn btn-danger" ng-click="removeTodo(todo)" aria-label="Remove">X</button>
         </span>

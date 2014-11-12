@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var db = require('monk')('localhost/todos');
+var todos = db.get('todos');
 var app = express();
 
 
@@ -19,35 +20,46 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
 
-var todos = ['algo1', 'algo2', 'algo3', 'chau'];
 
-app.get('/api/list', function(req, res) {
-
-    res.json({
-        data: todos
+app.get('/api/list', function (req, res) {
+    todos.find({}, function (err, docs) {
+        res.json({
+            data: docs
+        });
     });
+
 });
-app.post('/api/add', function(req, res) {
+app.post('/api/add', function (req, res) {
 
-    todos.push(req.body.todo);
-    res.json({
-        resp: 'OK',
-        todo: req.body.todo
-    });
+    var t = {
+        texto: req.body.todo,
+        fecha: new Date()
+    };
+    todos.insert(t, function (err, doc) {
+        res.json({
+            resp: 'OK',
+            todo: doc
+        });
+    })
 });
-app.post('/api/remove', function(req, res) {
+app.post('/api/remove', function (req, res) {
 
-    todos.splice(todos.indexOf(req.body.todo), 1)
-    res.json({
-        resp: 'OK',
-        todo: req.body.todo
+    todos.remove({
+        _id: todos.id(req.body.todo._id)
+    }, function (err, count) {
+        console.log(err, count);
+        res.json({
+            resp: 'OK',
+            todo: req.body.todo
+        });
     });
+
 
 });
 //agregar, remove
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);

@@ -26,7 +26,7 @@ angular.module('mitodoApp')
                     })
                         .success(function(data, status, header, config) {
                             console.log(data);
-                            $scope.todos.push($scope.todo);
+                            $scope.todos.push(data.todo);
                             $scope.todo = '';
                         });
                 }
