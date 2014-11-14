@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.post('/authenticate', function (req, res) {
   //TODO validate req.body.username and req.body.password
   //if is invalid, return 401
-  if (!(req.body.username === 'john.doe' && req.body.password === 'foobar')) {
+  if (!(req.body.username === 'foo' && req.body.password === 'bar')) {
     res.send(401, 'Wrong user or password');
     return;
   }
@@ -94,7 +94,12 @@ app.post('/api/remove', function (req, res) {
 
 
 });
-//agregar, remove
+
+app.get('/*', function (a, b) {
+  b.sendFile('app/index.html', {
+    root: __dirname
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

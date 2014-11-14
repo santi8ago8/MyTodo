@@ -17,7 +17,7 @@ var app = angular
         'ngSanitize',
         'ngTouch'
     ])
-  .config(function ($routeProvider, $httpProvider) {
+  .config(function ($routeProvider, $httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
       .when('/', {
@@ -35,6 +35,7 @@ var app = angular
       .otherwise({
         redirectTo: '/'
       });
+    $locationProvider.html5Mode(true);
   });
 
 app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
